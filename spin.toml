@@ -1,0 +1,25 @@
+spin_version = "1"
+authors = ["Thorsten Hans <thorsten.hans@gmail.com>"]
+description = ""
+name = "spin-to-slack"
+trigger = { type = "http", base = "/" }
+version = "0.1.0"
+
+[variables]
+slack_webhook_url = {  required = true }
+channel = { default = "#blog", secret = false }
+is_markdown = { default = "true", secret = false }
+
+[[component]]
+id = "spin-to-slack"
+source = "target/wasm32-wasi/release/spin_to_slack.wasm"
+allowed_http_hosts = [ "hooks.slack.com"]
+
+[component.config]
+slack_webhook_url = "{{ slack_webhook_url }}"
+channel = "{{ channel }}"
+is_markdown = "{{ is_markdown }}"
+[component.trigger]
+route = "/..."
+[component.build]
+command = "cargo build --target wasm32-wasi --release"

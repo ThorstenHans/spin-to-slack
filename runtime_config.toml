@@ -1,0 +1,5 @@
+[[config_provider]]
+type = "vault"
+url = "http://0.0.0.0:8200"
+token = "foobar"
+mount = "secret"
